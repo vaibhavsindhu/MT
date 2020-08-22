@@ -1,0 +1,30 @@
+<project name="Jmeter Calling" default="JmeterRun" basedir=".">
+
+	<property file="environment.properties" />
+	<property name="env" value="${envValue}" />
+
+	<property file="config.properties" />
+	<property file="build.properties" />
+	
+
+	<property name="jmeter.home" value="${Jmeter_Setup}" />
+	<property name="jmeter.extras" value="${jmeter.home}/extras" />
+	<property name="Jmeter_JMX_File_Path" value="${Jmeter_Script_Path}" />
+	
+	<path id="jmeter.classpath">
+		<fileset dir="${jmeter.extras}">
+			<include name="ant-jmeter*.jar" />
+		</fileset>
+	</path>
+	<taskdef name="jmeter" classpathref="jmeter.classpath" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask" />
+
+	<target name="JmeterRun">
+		<echo>funcMode = ${order}</echo>
+				<echo>funcMode = ${Jmeter_JMX_File_Path}</echo>
+		<delete file="${jmeter.extras}/${test}.html" />
+		<jmeter jmeterhome="${jmeter.home}" resultlog="${Jmeter_JMX_File_Path}.jtl">
+			<testplans dir="${Jmeter_JMX_File_Path}" includes="${order}" />
+
+		</jmeter>
+	</target>
+</project>

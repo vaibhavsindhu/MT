@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Mid Tier 2.0" verbose="1" preserve-order="true" configurationpolicy="skip">
+
+	<listeners>
+		<listener class-name="com.pch.utilities.Reporting" />
+	</listeners>
+
+	<test name="Environment Setup">
+		<parameter name="env" value="QA" />
+		<classes>
+			<class name="com.pch.utilities.EnvironmentSetup" />
+		</classes>
+	</test>
+
+
+
+	<test name="MidTier 2.0">
+		 <packages>
+		 	<package name="com.pch.test.script.*"/>
+		 </packages>
+	</test>
+
+
+</suite>

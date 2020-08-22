@@ -1,0 +1,52 @@
+<project name="MidTC:\Users\QAVM-18\Desktop\Resources\MidTier_Phase2\jmeter_xmlier 2.0" default="testng-execution" basedir=".">
+
+	<property name="basedir" value="." />
+	<property name="lib" value="${basedir}/lib" />
+	<property name="src" value="${basedir}/src" />
+	<property name="bin" value="${basedir}/bin" />
+	<property name="report-dir" value="${basedir}/test-output" />
+	<property name="testng-report-dir" value="${report-dir}/TestNGreport" />
+
+	<!-- ====== Set the classpath ==== -->
+	<path id="classpath">
+		<pathelement location="${bin}" />
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Delete directories -->
+	<target name="delete-dir">
+	    <delete dir="C:\Users\QAVM-18\Desktop\Resources\MidTier_Phase2\jmeter_xml" />
+		<delete dir="${bin}" />
+		<delete dir="${report-dir}" />
+	</target>
+
+	<!-- Creating directories -->
+	<target name="create" depends="delete-dir">
+	    <mkdir dir="C:\Users\QAVM-18\Desktop\Resources\MidTier_Phase2\jmeter_xml" />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${report-dir}" />
+	</target>
+
+	<!-- Compile the java code from ${src} into ${bin} -->
+	<target name="compile" depends="create">
+		<javac debug="true" srcdir="${src}" classpathref="classpath"
+			includeAntRuntime="No" destdir="${bin}" />
+		<echo> /* Compiled Directory Classes */ </echo>
+	</target>
+
+	<!-- Runs the file and generates Reportng report for TestNG -->
+	
+	<taskdef name="testng" classname="org.testng.TestNGAntTask">
+		<classpath location="lib/testng-6.9.6.jar" />
+	</taskdef>
+
+
+	<target name="testng-execution" depends="compile">
+		<mkdir dir="${testng-report-dir}" />
+		<testng outputdir="${testng-report-dir}" classpathref="classpath" useDefaultListeners="true">
+			<xmlfileset dir="${basedir}" includes="testngExtQA.xml" />
+		</testng>
+	</target>
+</project>
